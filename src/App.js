@@ -1,5 +1,8 @@
+import React from 'react'
+import Skills from './components/Skills'
+
 function App() {
-  return <div className="App">Observable</div>
+  return <Skills />
 }
 
 export default App
