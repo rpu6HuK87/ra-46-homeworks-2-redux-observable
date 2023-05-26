@@ -1,15 +1,15 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { combineEpics, createEpicMiddleware } from 'redux-observable'
-import skillsReducer from '../reducers/skills'
-import { changeSearchEpic, searchSkillsEpic } from '../epics'
+import { servicesReducer } from '../reducers/services'
+import { getServicesEpic } from '../epics'
 
 const reducer = combineReducers({
-  skills: skillsReducer
+  services: servicesReducer
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const epic = combineEpics(changeSearchEpic, searchSkillsEpic)
+const epic = combineEpics(getServicesEpic)
 
 const epicMiddleware = createEpicMiddleware()
 
