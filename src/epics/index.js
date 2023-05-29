@@ -4,10 +4,8 @@ import {
   map,
   tap,
   retry,
-  filter,
   debounceTime,
   switchMap,
-  mergeMap,
   catchError
 } from 'rxjs/operators'
 import {
@@ -19,7 +17,7 @@ import {
   searchSkillsSuccess,
   searchSkillsFailure
 } from '../actions/actionCreators'
-import { iif, of, merge } from 'rxjs'
+import { of } from 'rxjs'
 
 export const changeSearchEpic = (action$) =>
   action$.pipe(
@@ -30,6 +28,8 @@ export const changeSearchEpic = (action$) =>
     map((o) => searchSkillsRequest(o))
   )
 
+const searchUrl =
+  process.env.REACT_APP_SEARCH_URL || 'http://localhost:7070/api/search'
 export const searchSkillsEpic = (action$) =>
   action$.pipe(
     ofType(SEARCH_SKILLS_REQUEST),
@@ -38,7 +38,7 @@ export const searchSkillsEpic = (action$) =>
     tap((o) => console.log(o)),
     switchMap((o) =>
       o
-        ? ajax.getJSON(`${process.env.REACT_APP_SEARCH_URL}?${o}`).pipe(
+        ? ajax.getJSON(`${searchUrl}?${o}`).pipe(
             retry(3),
             map((o) => searchSkillsSuccess(o)),
             catchError((e) => of(searchSkillsFailure(e)))

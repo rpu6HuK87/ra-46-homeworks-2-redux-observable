@@ -19,15 +19,12 @@ export default function Skills() {
       </div>
       {!hasQuery && <div>Type something to search</div>}
       {hasQuery && loading && <div>searching...</div>}
-      {error ? (
-        <div>Error occured</div>
-      ) : (
-        <ul>
-          {items.map((o) => (
-            <li key={o.id}>{o.name}</li>
-          ))}
-        </ul>
-      )}
+      {error && <div>Error occured</div>}
+      <ul>
+        {items?.map((o) => (
+          <li key={o.id}>{o.name}</li>
+        ))}
+      </ul>
     </Fragment>
   )
 }
